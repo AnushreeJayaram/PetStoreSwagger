@@ -44,11 +44,14 @@ public class UserTests
 	@Test(priority=2)
 	public void testGetUserByName()
 	{
+		String expUserName=userPayload.getUsername();
+		
 	
 		Response response = UserEndPoints.readUser(this.userPayload.getUsername());
 		response.then().log().all();
-		
+		String actUsername = response.jsonPath().get("username");
 		Assert.assertEquals(response.getStatusCode(), 200);
+		Assert.assertEquals(actUsername, expUserName,"Username is not matching");
 	}
 	
 	@Test(priority=3)
